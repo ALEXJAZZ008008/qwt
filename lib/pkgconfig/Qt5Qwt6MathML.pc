@@ -1,0 +1,13 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${prefix}/local/qwt-6.3.0-svn/lib
+includedir=${prefix}/local/qwt-6.3.0-svn/include
+
+
+Name: Qwt6MathML
+Description: Qwt MathML renderer
+Version: 6.3.0
+Libs: -L${libdir} -lqwtmathml 
+Cflags: -I${includedir}
+Requires: Qt5Gui Qt5Widgets Qt5Xml
+
