@@ -96,6 +96,7 @@ public:
     int colorBarWidth() const;
 
     void setColorMap( const QwtInterval &, QwtColorMap * );
+     void setColorMap( const QwtInterval &, QSharedPointer<QwtColorMap> );
 
     QwtInterval colorBarInterval() const;
     const QwtColorMap *colorMap() const;

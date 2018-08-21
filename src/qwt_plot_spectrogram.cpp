@@ -218,6 +218,11 @@ const QwtColorMap *QwtPlotSpectrogram::colorMap() const
     return d_data->colorMap.data();
 }
 
+QSharedPointer<QwtColorMap> QwtPlotSpectrogram::colorMap_sptr() const
+{
+    return d_data->colorMap; 
+}
+
 void QwtPlotSpectrogram::setMaxRGBTableSize( int numColors )
 {
     numColors = qMax( numColors, 0 );

@@ -69,6 +69,7 @@ public:
     void setColorMap( QwtColorMap *colorMap );
     void setColorMap(const QSharedPointer<QwtColorMap> );
     const QwtColorMap *colorMap() const;
+    QSharedPointer<QwtColorMap> colorMap_sptr() const;
 
     void setMaxRGBTableSize( int numColors );
     int maxRGBTableSize() const;

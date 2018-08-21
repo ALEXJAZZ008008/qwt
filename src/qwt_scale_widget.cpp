@@ -33,7 +33,7 @@ public:
     ~PrivateData()
     {
         delete scaleDraw;
-        delete colorBar.colorMap;
+        //delete colorBar.colorMap;
     }
 
     QwtScaleDraw *scaleDraw;
@@ -54,7 +54,7 @@ public:
         bool isEnabled;
         int width;
         QwtInterval interval;
-        QwtColorMap *colorMap;
+        QSharedPointer<QwtColorMap> colorMap;
     } colorBar;
 };
 
@@ -110,7 +110,7 @@ void QwtScaleWidget::initScale( QwtScaleDraw::Alignment align )
     d_data->scaleDraw->setScaleDiv(
         QwtLinearScaleEngine().divideScale( 0.0, 100.0, 10, 5 ) );
 
-    d_data->colorBar.colorMap = new QwtLinearColorMap();
+    d_data->colorBar.colorMap.reset(new QwtLinearColorMap());
     d_data->colorBar.isEnabled = false;
     d_data->colorBar.width = 10;
 
@@ -942,7 +942,22 @@ void QwtScaleWidget::setColorMap(
 
     if ( colorMap != d_data->colorBar.colorMap )
     {
-        delete d_data->colorBar.colorMap;
+        //d_data->colorBar.colorMap.reset();
+        d_data->colorBar.colorMap.reset(colorMap); 
+    }
+
+    if ( isColorBarEnabled() )
+        layoutScale();
+}
+
+void QwtScaleWidget::setColorMap(
+    const QwtInterval &interval, QSharedPointer<QwtColorMap> colorMap )
+{
+    d_data->colorBar.interval = interval;
+
+    if ( colorMap != d_data->colorBar.colorMap )
+    {
+        //delete d_data->colorBar.colorMap;
         d_data->colorBar.colorMap = colorMap;
     }
 
@@ -956,5 +971,5 @@ void QwtScaleWidget::setColorMap(
 */
 const QwtColorMap *QwtScaleWidget::colorMap() const
 {
-    return d_data->colorBar.colorMap;
+    return d_data->colorBar.colorMap.get();
 }
